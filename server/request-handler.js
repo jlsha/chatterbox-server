@@ -62,7 +62,18 @@ var requestHandler = function(request, response) {
   
   if (request.url === '/classes/messages' && request.method === 'GET') {
     response.end(JSON.stringify({results: results}));
+  } else if (request.url === '/classes/messages' && request.method === 'POST') {
+    var body = '';
+    request.on('data', function(data) {
+      body += data;
+    });
+    request.on('end', function() {
+      results.push(JSON.parse(body));
+      response.writeHead(201, headers);
+      response.end(JSON.stringify({results: results}));
+    });
   } else {
+    response.writeHead(404, headers);
     response.end();
   }
 
