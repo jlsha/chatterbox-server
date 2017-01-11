@@ -43,14 +43,12 @@ var app = {
       url: app.server,
       type: 'POST',
       data: JSON.stringify(message),
-      contentType: 'application/json',
       success: function (data) {
         // Clear messages input
         app.$message.val('');
 
         // Trigger a fetch to update the messages, pass true to animate
         app.fetch();
-
       },
       error: function (error) {
         console.error('chatterbox: Failed to send message', error);
@@ -63,8 +61,8 @@ var app = {
       url: app.server,
       type: 'GET',
       data: { order: '-createdAt' },
+      contentType: 'application/json',
       success: function(data) {
-        console.log(data);
         // Don't bother if we have nothing to work with
         if (!data.results || !data.results.length) { return; }
 

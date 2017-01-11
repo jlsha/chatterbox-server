@@ -14,7 +14,7 @@ module.exports = {
 
     this.end = function(data) {
       this._ended = true;
-      this._data = JSON.stringify(data);
+      this._data = data;
     }.bind(this);
   },
 
