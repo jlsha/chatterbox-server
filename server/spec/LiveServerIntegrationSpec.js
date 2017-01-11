@@ -73,5 +73,27 @@ describe('server', function() {
     });
   });
 
+  it('Should return a string for the body', function (done) {
+    request('http://127.0.0.1:3000/classes/messages', function(error, response, body) {
+      expect(body).to.be.a('string');
+      done();
+    });
+  });
+
+  it('Should return a string for the body', function (done) {
+    var requestParams = {method: 'POST',
+      uri: 'http://127.0.0.1:3000/classes/messages',
+      json: {
+        username: 'Jen',
+        message: 'Hey what is up'}
+    };
+    request(requestParams, function(error, response, body) {
+      request('http://127.0.0.1:3000/classes/messages', function(error, response, body) {
+        var messages = JSON.parse(body).results;
+        expect(messages[2].username).to.equal('Jen');
+        done();
+      });
+    });
+  });
 
 });
